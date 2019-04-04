@@ -1,0 +1,35 @@
+<ion-header class="dark1">
+  <ion-navbar>
+    <ion-title>OpenMusic</ion-title>
+  </ion-navbar>
+  <ion-searchbar placeholder="Type an artist, band or song name" [(ngModel)]="searchBarValue" [showCancelButton]="true" (ionInput)="search($event)" (ionCancel)="clearSearch($event)">
+
+  </ion-searchbar>
+
+</ion-header>
+
+<ion-content padding class="darkBackground">
+  <ion-list>
+    <ion-item *ngFor="let track of searchResultsYoutube">
+      <ion-thumbnail item-start>
+        <img src="{{track.thumbnails.default.url}}">
+      </ion-thumbnail>
+      <h2>{{track.title}}</h2>
+      <p>{{track.channelTitle}}</p>
+      <button ion-button clear item-end (click)="downloadTrackYT(2,track.id)">Download</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item *ngFor="let track of searchResultsItunes.results">
+      <ion-thumbnail item-start>
+        <img src="{{track.artworkUrl100}}">
+      </ion-thumbnail>
+      <h2>{{track.trackCensoredName}}</h2>
+      <p>{{track.artistName}}</p>
+      <!--<progress-bar [progress]="loadProgress(track.trackId)"></progress-bar>-->
+      <button ion-button (click)="downloadTrackiTunes(1,track.trackId)" clear item-end>Download</button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

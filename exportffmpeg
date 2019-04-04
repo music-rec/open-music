@@ -1,0 +1,9 @@
+#!/bin/bash
+#set ffmpeg to $PATH
+
+exportffmpeg(){
+    export PATH=$PATH:./ffmpeg  
+    echo 'FFMPEG $PATH has been defined!'
+}
+exportffmpeg
+

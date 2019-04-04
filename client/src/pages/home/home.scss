@@ -1,0 +1,25 @@
+page-home {
+    .darkBackground {
+        background: #121212;
+        color: white;
+    }
+    .toolbar-background-md {
+        background: #212121;
+    }
+    .toolbar-title-md {
+        color: white;
+        text-align: center;
+    }
+    .tabs-md .tabbar {
+        background: #212121;
+    }
+    // all tabs texts
+    .tabs-md .tab-button-text {
+        font-size: 14px;
+        color: #fff;
+    }
+    // selected tab
+    .tabs-md .tab-button[aria-selected=true] {
+        background-color: #fff;
+    }
+}

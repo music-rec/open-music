@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Open Music</title>
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#212121">
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+  <script>
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('service worker installed'))
+        .catch(err => console.error('Error', err));
+      console.log('Service Worker and Push is supported');
+    }
+
+    if (window.location.protocol != 'https:') {
+      window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    }
+    if ('serviceWorker' in navigator) {
+      console.log('CLIENT: service worker registration in progress.');
+      navigator.serviceWorker.register('service-worker.js').then(function() {
+        console.log('CLIENT: service worker registration complete.');
+      }, function(e) {
+        console.log('CLIENT: service worker registration failure. ', e);
+      });
+    }
+    else {
+      console.log('CLIENT: service worker is not supported.');
+    }
+    Notification.requestPermission(function(result) {
+      if (result === 'granted') {
+        console.log("[ISW] Notification registred!")
+      }
+      else {
+        alert("OpenMusic only works over HTTPS(Secure connections). You will be redirect.")
+      }
+    });
+    // request permission on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!Notification) {
+        alert('Oops. Your browser looks like broken.');
+        return;
+      }
+
+      if (Notification.permission !== "granted")
+        Notification.requestPermission();
+    });
+  </script>
+
+  <link href="build/main.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Ionic's root component and where the app will load -->
+  <ion-app></ion-app>
+
+  <!-- The polyfills js is generated during the build process -->
+  <script src="build/polyfills.js"></script>
+
+
+  <!-- The vendor js is generated during the build process
+       It contains all of the dependencies in node_modules -->
+  <script src="build/vendor.js"></script>
+
+  <!-- The main bundle js is generated during the build process -->
+  <script src="build/main.js"></script>
+
+</body>
+
+</html>
